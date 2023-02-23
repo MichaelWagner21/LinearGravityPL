@@ -59,15 +59,13 @@ public class PhysicsPL {
                 gravitationalConstant = ColorsPL.getColorAttraction(currentObj.objColor, MainPL.circles[c].objColor);
                 
                 if (twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY)>100){
-                    tempDistance = twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY)
+                    tempDistance = twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY);
                     forceGravity = gravitationalConstant*Math.abs((-1*Math.abs(tempDistance-.75*200)+50)/50);
                 }
                 else {
-                    tempDistance = twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY)
+                    tempDistance = twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY);
                     forceGravity = -0.2*Math.abs((-1*Math.abs(tempDistance-.75*200)+50)/50);
                 }
-                forceGravity = gravitationalConstant * 
-                (twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY));
 
 
                 sinTheta = oneDimDisplacement(currentY, MainPL.circles[c].currentBody.currentY)
