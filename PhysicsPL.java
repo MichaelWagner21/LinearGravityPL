@@ -4,6 +4,8 @@ public class PhysicsPL {
     int currentX;
     int currentY;
 
+    double tempDistance = 0;
+
     double mass = 1;
 
     double forceGravity = 0;
@@ -46,9 +48,9 @@ public class PhysicsPL {
     public void refresh(){
 
 
-        //Below: Maybe Delete, cancels all inertia
-        /*forceX = 0;
-        forceY = 0;*/
+        //Below:cancels all inertia
+        forceX = 0;
+        forceY = 0;
 
 
         //Below: Calculates force of gravity for all other circles, and finds the sum of forces. 
@@ -56,8 +58,16 @@ public class PhysicsPL {
             if (twoDimDistance(currentX, currentY, MainPL.circles[c].currentBody.currentX, MainPL.circles[c].currentBody.currentY) > MainPL.DIAMETER){
                 gravitationalConstant = ColorsPL.getColorAttraction(currentObj.objColor, MainPL.circles[c].objColor);
                 
-                forceGravity = gravitationalConstant * ((mass*mass)/
-                (Math.pow(twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY),1)));
+                if (twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY)>100){
+                    tempDistance = twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY)
+                    forceGravity = gravitationalConstant*Math.abs((-1*Math.abs(tempDistance-.75*200)+50)/50);
+                }
+                else {
+                    tempDistance = twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY)
+                    forceGravity = -0.2*Math.abs((-1*Math.abs(tempDistance-.75*200)+50)/50);
+                }
+                forceGravity = gravitationalConstant * 
+                (twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY));
 
 
                 sinTheta = oneDimDisplacement(currentY, MainPL.circles[c].currentBody.currentY)
@@ -78,30 +88,6 @@ public class PhysicsPL {
 
         
         generalForce = Math.sqrt(Math.pow(forceX,2) + Math.pow(forceY,2));
-
-        //Below: Collision with other circle. 
-        for (int c = 0; c<MainPL.circles.length; c++){
-            //Below: if not same circle
-            if (twoDimDistance(currentX, currentY, MainPL.circles[c].currentBody.currentX, MainPL.circles[c].currentBody.currentY) != 0){
-                //Below: if too close
-                if (twoDimDistance(currentX, currentY, MainPL.circles[c].currentBody.currentX, MainPL.circles[c].currentBody.currentY)<=MainPL.DIAMETER){
-
-                    sinTheta = oneDimDisplacement(currentY, MainPL.circles[c].currentBody.currentY)/
-                    twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY);
-
-                    cosTheta = oneDimDisplacement(currentX, MainPL.circles[c].currentBody.currentX)/
-                    twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY);
-
-                    //Below coefficient: Bounce retained/gained. 0 is 0% efficient, -1 is 100%, -2 is 200%, etc.
-                    forceX = -1*cosTheta*generalForce;
-                    forceY = -1*sinTheta*generalForce;
-                    forceX+=MainPL.circles[c].currentBody.forceX;
-                    forceY+=MainPL.circles[c].currentBody.forceY;
-                }
-            }
-        }
-
-        
 
  
         //Below If Statements: If outside edge and headed outside of bounds, bounce off edge.
