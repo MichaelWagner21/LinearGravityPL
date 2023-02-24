@@ -19,8 +19,8 @@ public class PhysicsPL {
 
     double gravitationalConstant = 0;
 
-    double forceX = MainPL.randNumDouble(-0.1,0.1);
-    double forceY = MainPL.randNumDouble(-0.1,0.1);
+    double forceX = 0;
+    double forceY = 0;
 
     double accelerationX = forceX/mass;
     double accelerationY = forceY/mass;
@@ -47,6 +47,23 @@ public class PhysicsPL {
 
     public void refresh(){
 
+        //Below If Statements: If outside edge and headed outside of bounds, teleport to other side
+        if (currentX-MainPL.XBOUND>=0 && displacementX>=0){
+            currentObj.setCoords(MainPL.XBOUND,currentY);
+        }
+
+        if (currentX<=0 && displacementX<=0){
+            currentObj.setCoords(0,currentY);
+        }
+
+        if (currentY-MainPL.YBOUND>=-10 && displacementY>=0){
+            currentObj.setCoords(currentX,0);
+        }
+
+        if (currentY<=0 && displacementY<=0){
+            currentObj.setCoords(currentX,MainPL.YBOUND);
+        }
+
 
         //Below:cancels all inertia
         forceX = 0;
@@ -64,7 +81,8 @@ public class PhysicsPL {
                 }
                 else {
                     tempDistance = twoDimDistance(currentX,currentY,MainPL.circles[c].currentBody.currentX,MainPL.circles[c].currentBody.currentY);
-                    forceGravity = -0.2*Math.abs((-1*Math.abs(tempDistance-.75*200)+50)/50);
+                    //forceGravity = -0.2*Math.abs((-1*Math.abs(tempDistance-.75*200)+50)/50);
+                    forceGravity = 0;
                 }
 
 
@@ -88,22 +106,7 @@ public class PhysicsPL {
         generalForce = Math.sqrt(Math.pow(forceX,2) + Math.pow(forceY,2));
 
  
-        //Below If Statements: If outside edge and headed outside of bounds, bounce off edge.
-        if (currentX-MainPL.XBOUND>=0 && forceX>=0){
-            forceX = -1*Math.abs(forceX);
-        }
-
-        if (currentX<=0 && forceX<=0){
-            forceX = Math.abs(forceX);
-        }
-
-        if (currentY-MainPL.YBOUND>=-10 && forceY>=0){
-            forceY = -1*Math.abs(forceY);
-        }
-
-        if (currentY<=0 && forceY<=0){
-            forceY = Math.abs(forceY);
-        }
+        
 
 
         accelerationX = forceX/mass;
