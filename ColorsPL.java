@@ -2,7 +2,8 @@ import javax.swing.ImageIcon;
 
 public class ColorsPL {
     static double[][] colorAttractions = new double[5][5];
-    //static double[][] colorAttractions = {{1,.5,-.2,-.2,-.4},{-.4,1,.5,-.2,-.2},{-.2,-.4,1,.5,-.2},{-.2,-.2,-.4,1,.5},{.5,-.2,-.2,-.4,1}};
+    //static double[][] colorAttractions = {{.1,.2,-0.0025,-0.0025,-.1},{-.1,.1,.2,-0.0025,-0.0025},{-0.0025,-.1,.1,.2,-0.0025},{-0.0025,-0.0025,-.1,.1,.3},{-0.005,-0.0025,-0.0025,-.1,.1}};
+
     static String[] colorList = {"red","blue","yellow","green","orange"};
     private static int colorIndex1 = 0;
     private static int colorIndex2 = 0;
@@ -12,7 +13,7 @@ public class ColorsPL {
     public static void setColorAttractors(){
         for (int f = 0; f<colorAttractions.length; f++){
             for (int s = 0; s<colorAttractions.length; s++){
-                colorAttractions[f][s] = MainPL.randNumDouble(-0.1,0.1);
+                colorAttractions[f][s] = MainPL.randNumDouble(-0.05,0.05);
             }
         }
     }
