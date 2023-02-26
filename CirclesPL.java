@@ -1,5 +1,6 @@
-import javax.swing.JLabel;
 import java.awt.Color;
+
+import javax.swing.JLabel;
 
 
 public class CirclesPL extends JLabel{

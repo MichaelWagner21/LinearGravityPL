@@ -1,5 +1,6 @@
-import javax.swing.SwingUtilities;
 import java.util.Random;
+
+import javax.swing.SwingUtilities;
 
 
 public class MainPL {
